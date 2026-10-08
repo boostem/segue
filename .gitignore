@@ -1,0 +1,19 @@
+# Build output
+build/
+compile_commands.json
+.cache/
+
+# Local audio assets
+*.wav
+*.aif
+*.aiff
+*.flac
+
+# Simulation tester output
+*.simlog
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+*.swp

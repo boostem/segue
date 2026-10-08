@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+
+    name: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # Debug builds have ASan + UBSan on (SEGUE_SANITIZE)
+      - name: Configure
+        run: cmake -S . -B build/debug -DCMAKE_BUILD_TYPE=Debug
+
+      - name: Build
+        run: cmake --build build/debug -j
+
+      - name: Test
+        run: ctest --test-dir build/debug --output-on-failure
+
+      # Enable once the simulation tester exists (docs/ROADMAP.md, Testing):
+      # - name: Simulation test
+      #   run: ./build/debug/segue_simtest --duration 60

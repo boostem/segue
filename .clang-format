@@ -1,0 +1,25 @@
+BasedOnStyle: LLVM
+ColumnLimit: 100
+IndentWidth: 2
+UseTab: Never
+
+# Functions: return type on its own line, brace on its own line
+BreakAfterReturnType: AllDefinitions
+BreakBeforeBraces: Linux
+AllowShortFunctionsOnASingleLine: None
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
+InsertBraces: true
+
+PointerAlignment: Right
+AlignConsecutiveMacros: Consecutive
+IndentPPDirectives: AfterHash
+
+# Includes: own header, then local, then system
+IncludeBlocks: Regroup
+SortIncludes: CaseSensitive
+IncludeCategories:
+  - Regex: '^"'
+    Priority: 1
+  - Regex: '^<'
+    Priority: 2
